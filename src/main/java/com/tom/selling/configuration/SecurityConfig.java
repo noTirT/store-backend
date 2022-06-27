@@ -15,10 +15,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password("password1").roles("USER");
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password("{noop}password")
+                .roles("USER");
     }
 }
