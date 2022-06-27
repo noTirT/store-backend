@@ -37,7 +37,7 @@ public class DatabaseController {
         return new ResponseEntity<>(this.dataService.getById(id).orElseThrow(), HttpStatus.OK);
     }
 
-    @PostMapping("/art")
+    @PostMapping("/admin/art")
     public ResponseEntity<Void> createNew(@RequestBody ArtPiece artPiece){
         this.dataService.createNew(artPiece);
         return new ResponseEntity<>(HttpStatus.OK);
