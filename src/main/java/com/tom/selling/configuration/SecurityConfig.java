@@ -10,15 +10,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/art/**", "/categories/**").anonymous()
-                .antMatchers("/admin/**").authenticated();
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("user").password("password").roles("ADMIN");
+                .withUser("admin").password("password1").roles("USER");
     }
 }
