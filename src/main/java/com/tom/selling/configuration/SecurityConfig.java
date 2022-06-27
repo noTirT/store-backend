@@ -13,19 +13,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
+                .httpBasic().and()
+                .authorizeRequests()
+                .antMatchers("/art/**", "/categories/**").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .httpBasic();
+                .csrf().disable();
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("password")
-                .roles("USER");
+        auth.inMemoryAuthentication().withUser("guest").password("{noop}guest1234").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin1234").roles("ADMIN");
     }
 
 }
