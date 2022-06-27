@@ -11,12 +11,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
 
                 authorizeRequests()
-                .antMatchers("/art/**", "/categories/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic();
+                .formLogin();
     }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
