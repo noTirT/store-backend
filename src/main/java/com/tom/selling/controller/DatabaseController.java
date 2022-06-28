@@ -32,7 +32,7 @@ public class DatabaseController {
         return new ResponseEntity<>(this.dataService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/admin/id/{id}")
+    @GetMapping("/art/id/{id}")
     public ResponseEntity<ArtPiece> getById(@PathVariable Long id){
         return new ResponseEntity<>(this.dataService.getById(id).orElseThrow(), HttpStatus.OK);
     }
