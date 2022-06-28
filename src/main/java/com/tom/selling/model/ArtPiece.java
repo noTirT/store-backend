@@ -1,6 +1,7 @@
 package com.tom.selling.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "artpieces")
+@Builder
 public class ArtPiece {
 
     @Id
@@ -29,7 +31,7 @@ public class ArtPiece {
     private Float prize;
 
     @Column
-    private String base64Image;
+    private String imagelink;
 
     @Column
     private String description;
@@ -37,7 +39,16 @@ public class ArtPiece {
     @Column
     private String category;
 
-    public ArtPiece(String name){
+    public ArtPiece(String name) {
         this.name = name;
+    }
+
+    public static ArtPiece of(ArtPieceUpload artPieceUpload, String imageLink) {
+        return ArtPiece.builder()
+                .category(artPieceUpload.getCategory())
+                .imagelink(imageLink)
+                .description(artPieceUpload.getDescription())
+                .name(artPieceUpload.getName())
+                .prize(artPieceUpload.getPrize()).build();
     }
 }

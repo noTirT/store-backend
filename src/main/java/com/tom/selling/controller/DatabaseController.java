@@ -1,6 +1,7 @@
 package com.tom.selling.controller;
 
 import com.tom.selling.model.ArtPiece;
+import com.tom.selling.model.ArtPieceUpload;
 import com.tom.selling.model.Category;
 import com.tom.selling.service.DataService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class DatabaseController {
     }
 
     @PostMapping("/art")
-    public ResponseEntity<Void> createNew(@RequestBody ArtPiece artPiece) {
+    public ResponseEntity<Void> createNew(@RequestBody ArtPieceUpload artPiece) {
         this.dataService.createNew(artPiece);
         return new ResponseEntity<>(HttpStatus.OK);
     }
