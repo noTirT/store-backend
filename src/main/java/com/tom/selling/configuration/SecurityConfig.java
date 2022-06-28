@@ -1,6 +1,5 @@
 package com.tom.selling.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/art/**", "/categories/**").anonymous()
+                .antMatchers("/art/**", "/categories/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .csrf().disable();
@@ -27,5 +26,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("guest").password("{noop}guest1234").roles("USER");
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin1234").roles("ADMIN");
     }
-
 }
