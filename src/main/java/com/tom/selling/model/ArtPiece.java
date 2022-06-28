@@ -29,7 +29,7 @@ public class ArtPiece {
     private Float prize;
 
     @Column
-    private String imagelink;
+    private String base64Image;
 
     @Column
     private String description;
