@@ -1,23 +1,15 @@
 package com.tom.selling.service;
 
-import com.tom.selling.controller.ImageClient;
 import com.tom.selling.model.ArtPiece;
-import com.tom.selling.model.ArtPieceUpload;
 import com.tom.selling.model.Category;
-import com.tom.selling.model.ImageUploadClientResponse;
 import com.tom.selling.repository.ArtRepository;
 import com.tom.selling.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,12 +23,6 @@ public class DataService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ImageClient imageClient;
-
-    @Value("${api.key}")
-    private String apiKey;
 
     public List<ArtPiece> getAll() {
         return StreamSupport
@@ -54,12 +40,11 @@ public class DataService {
         return artRepository.findById(id);
     }
 
-    public void createNew(ArtPieceUpload artPiece) {
-        ImageUploadClientResponse response = imageClient.uploadImage(apiKey, artPiece.getBase64Image());
+    public void createNew(ArtPiece artPiece) {
         if(!getCategoryNames(getAllCategories()).contains(artPiece.getCategory())){
             categoryRepository.save(new Category(artPiece.getCategory()));
         }
-        artRepository.save(ArtPiece.of(artPiece, response.getData().get("url").toString()));
+        artRepository.save(artPiece);
     }
 
     private List<String> getCategoryNames(List<Category> categories){
