@@ -12,5 +12,5 @@ import java.util.Map;
 @FeignClient(value = "imgBB-client", url = "https://api.imgbb.com/1/upload")
 public interface ImageClient {
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    ImageUploadClientResponse uploadImage(@RequestParam String key, @RequestParam String base64Image);
+    ImageUploadClientResponse uploadImage(@RequestParam String key, @RequestParam String image);
 }
