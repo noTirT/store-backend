@@ -50,4 +50,11 @@ public class DataService {
     private List<String> getCategoryNames(List<Category> categories){
         return categories.stream().map(Category::getCategoryname).collect(Collectors.toList());
     }
+
+    public void deleteById(Long id){
+        this.artRepository.deleteById(id);
+    }
+    public void deleteAll(){
+        this.artRepository.deleteAll();
+    }
 }

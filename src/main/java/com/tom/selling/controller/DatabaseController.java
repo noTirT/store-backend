@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +26,12 @@ public class DatabaseController {
     private DataService dataService;
 
     @GetMapping("/art/all")
-    public ResponseEntity<List<ArtPiece>> getAllData(){
+    public ResponseEntity<List<ArtPiece>> getAllData() {
         return new ResponseEntity<>(this.dataService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/art/id/{id}")
-    public ResponseEntity<ArtPiece> getById(@PathVariable Long id){
+    public ResponseEntity<ArtPiece> getById(@PathVariable Long id) {
         return new ResponseEntity<>(this.dataService.getById(id).orElseThrow(), HttpStatus.OK);
     }
 
@@ -41,7 +42,19 @@ public class DatabaseController {
     }
 
     @GetMapping("/categories/all")
-    public ResponseEntity<List<Category>> getAllCategories(){
+    public ResponseEntity<List<Category>> getAllCategories() {
         return new ResponseEntity<>(this.dataService.getAllCategories(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/art/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+        this.dataService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/art")
+    public ResponseEntity<?> deleteAll() {
+        this.dataService.deleteAll();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
