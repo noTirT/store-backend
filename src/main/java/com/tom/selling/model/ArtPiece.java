@@ -43,12 +43,4 @@ public class ArtPiece {
         this.name = name;
     }
 
-    public static ArtPiece of(ArtPieceUpload artPieceUpload, String imageLink) {
-        return ArtPiece.builder()
-                .category(artPieceUpload.getCategory())
-                .imagelink(imageLink)
-                .description(artPieceUpload.getDescription())
-                .name(artPieceUpload.getName())
-                .prize(artPieceUpload.getPrize()).build();
-    }
 }
