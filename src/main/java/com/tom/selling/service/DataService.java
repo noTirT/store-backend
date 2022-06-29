@@ -2,6 +2,7 @@ package com.tom.selling.service;
 
 import com.tom.selling.model.ArtPiece;
 import com.tom.selling.model.Category;
+import com.tom.selling.model.ItemReturn;
 import com.tom.selling.repository.ArtRepository;
 import com.tom.selling.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,10 @@ public class DataService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<ArtPiece> getAll() {
+    public List<ItemReturn> getAll() {
         return StreamSupport
                 .stream(artRepository.findAll().spliterator(), false)
+                .map(ItemReturn::of)
                 .collect(Collectors.toList());
     }
 

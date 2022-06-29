@@ -2,6 +2,8 @@ package com.tom.selling.controller;
 
 import com.tom.selling.model.ArtPiece;
 import com.tom.selling.model.Category;
+import com.tom.selling.model.ItemReturn;
+import com.tom.selling.model.ItemUpload;
 import com.tom.selling.service.DataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +28,18 @@ public class DatabaseController {
     private DataService dataService;
 
     @GetMapping("/art/all")
-    public ResponseEntity<List<ArtPiece>> getAllData() {
+    public ResponseEntity<List<ItemReturn>> getAllData() {
         return new ResponseEntity<>(this.dataService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/art/id/{id}")
-    public ResponseEntity<ArtPiece> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(this.dataService.getById(id).orElseThrow(), HttpStatus.OK);
+    public ResponseEntity<ItemReturn> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(ItemReturn.of(this.dataService.getById(id).orElseThrow()), HttpStatus.OK);
     }
 
     @PostMapping("/art")
-    public ResponseEntity<Void> createNew(@RequestBody ArtPiece artPiece) {
-        this.dataService.createNew(artPiece);
+    public ResponseEntity<Void> createNew(@RequestBody ItemUpload item) {
+        this.dataService.createNew(ArtPiece.of(item));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

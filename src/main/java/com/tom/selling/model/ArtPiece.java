@@ -43,4 +43,13 @@ public class ArtPiece {
         this.name = name;
     }
 
+    public static ArtPiece of(ItemUpload item){
+        return ArtPiece.builder()
+                .prize(item.getPrize())
+                .name(item.getName())
+                .description(item.getDescription())
+                .category(item.getCategory())
+                .imagelink(String.join("|||", item.getImagelinks()))
+                .build();
+    }
 }
