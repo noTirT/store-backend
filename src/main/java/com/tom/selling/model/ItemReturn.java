@@ -29,7 +29,7 @@ public class ItemReturn {
                 .id(item.getId())
                 .name(item.getName())
                 .prize(item.getPrize())
-                .imagelinks(item.getImagelink().split("|||"))
+                .imagelinks(item.getImagelink().split("\\|\\|\\|"))
                 .description(item.getDescription())
                 .category(item.getCategory())
                 .build();
