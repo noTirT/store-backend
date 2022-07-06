@@ -44,6 +44,7 @@ public class DatabaseController {
             this.dataService.createNew(ArtPiece.of(artPiece));
             return new ResponseEntity<>(HttpStatus.OK);
         }
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 

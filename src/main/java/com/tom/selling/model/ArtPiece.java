@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import java.sql.Array;
 @NoArgsConstructor
 @Table(name = "artpieces")
 @Builder
+@Slf4j
 public class ArtPiece {
 
     @Id
@@ -45,6 +47,7 @@ public class ArtPiece {
     }
 
     public static ArtPiece of(ArtPieceLinkList rawItem){
+        log.info(String.join(" ", rawItem.getImagelink()));
         return ArtPiece.builder()
                 .name(rawItem.getName())
                 .prize(rawItem.getPrize())
