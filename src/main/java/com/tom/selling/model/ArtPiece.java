@@ -47,7 +47,7 @@ public class ArtPiece {
     }
 
     public static ArtPiece of(ArtPieceLinkList rawItem){
-        log.info(String.join(" ", rawItem.getImagelink()));
+        log.info(rawItem.toString());
         return ArtPiece.builder()
                 .name(rawItem.getName())
                 .prize(rawItem.getPrize())
