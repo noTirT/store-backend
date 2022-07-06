@@ -2,8 +2,6 @@ package com.tom.selling.controller;
 
 import com.tom.selling.model.ArtPiece;
 import com.tom.selling.model.Category;
-import com.tom.selling.model.ItemReturn;
-import com.tom.selling.model.ItemUpload;
 import com.tom.selling.model.Order;
 import com.tom.selling.service.DataService;
 import lombok.RequiredArgsConstructor;
@@ -30,18 +28,18 @@ public class DatabaseController {
     private DataService dataService;
 
     @GetMapping("/art/all")
-    public ResponseEntity<List<ItemReturn>> getAllData() {
+    public ResponseEntity<List<ArtPiece>> getAllData() {
         return new ResponseEntity<>(this.dataService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/art/id/{id}")
-    public ResponseEntity<ItemReturn> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(ItemReturn.of(this.dataService.getById(id).orElseThrow()), HttpStatus.OK);
+    public ResponseEntity<ArtPiece> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(this.dataService.getById(id).orElseThrow(), HttpStatus.OK);
     }
 
     @PostMapping("/art")
-    public ResponseEntity<Void> createNew(@RequestBody ItemUpload item) {
-        this.dataService.createNew(ArtPiece.of(item));
+    public ResponseEntity<Void> createNew(@RequestBody ArtPiece artPiece) {
+        this.dataService.createNew(artPiece);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

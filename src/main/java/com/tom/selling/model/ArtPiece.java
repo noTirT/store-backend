@@ -31,7 +31,7 @@ public class ArtPiece {
     private Float prize;
 
     @Column
-    private String imagelink;
+    private String[] imagelink;
 
     @Column
     private String description;
@@ -43,13 +43,4 @@ public class ArtPiece {
         this.name = name;
     }
 
-    public static ArtPiece of(ItemUpload item){
-        return ArtPiece.builder()
-                .prize(item.getPrize())
-                .name(item.getName())
-                .description(item.getDescription())
-                .category(item.getCategory())
-                .imagelink(String.join("|||", item.getImagelinks()))
-                .build();
-    }
 }

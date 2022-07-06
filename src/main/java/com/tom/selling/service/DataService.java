@@ -2,20 +2,17 @@ package com.tom.selling.service;
 
 import com.tom.selling.model.ArtPiece;
 import com.tom.selling.model.Category;
-import com.tom.selling.model.ItemReturn;
 import com.tom.selling.model.Order;
 import com.tom.selling.repository.ArtRepository;
 import com.tom.selling.repository.CategoryRepository;
 import com.tom.selling.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -31,10 +28,9 @@ public class DataService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public List<ItemReturn> getAll() {
+    public List<ArtPiece> getAll() {
         return StreamSupport
                 .stream(artRepository.findAll().spliterator(), false)
-                .map(ItemReturn::of)
                 .collect(Collectors.toList());
     }
 

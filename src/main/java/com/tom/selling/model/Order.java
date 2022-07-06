@@ -37,4 +37,6 @@ public class Order {
 
     @Column
     private boolean fullfilled;
+
+    //todo order can contain multiple items; update readme file
 }

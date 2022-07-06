@@ -107,7 +107,7 @@ Response:
 ]
 ```
 
-###Get By ID
+### Get By ID
 
 ```http
 GET /art/id/{id}
@@ -122,13 +122,13 @@ GET /art/id/{id}
     "id": "string",
     "name": "string",
     "prize": "float",
-    "imagelinke": "string",
+    "imagelink": "string",
     "description": "string",
     "category": "string"
   }
 ```
 
-###Get All Categories
+### Get All Categories
 
 ```http
 GET /categories/all
@@ -141,7 +141,7 @@ GET /categories/all
   }
 ```
 
-###Delete By ID
+### Delete By ID
 
 ```http
 DELETE /art/{id}
@@ -151,10 +151,54 @@ DELETE /art/{id}
 | :--- | :--- | :---|
 | id | String | ID of the requested item |
 
-###Delete All
+### Delete All Artpieces
 
 ```http
 DELETE /art
+```
+
+### Get all Orders
+
+```http
+GET /orders/all
+```
+
+```json
+[
+  {
+    "ordereditemid": "int",
+    "total": "float",
+    "customeremail": "String",
+    "orderedattimestamp": "long",
+    "fullfilled": "boolean"
+  }
+]
+```
+
+### Get Order by ID
+
+```http
+GET /orders/{id}
+```
+
+|Body-parameter | Type | Description |
+| :--- | :--- | :---|
+| id | String | ID of the requested order |
+
+```json
+{
+    "ordereditemid": "int",
+    "total": "float",
+    "customeremail": "String",
+    "orderedattimestamp": "long",
+    "fullfilled": "boolean"
+  }
+```
+
+### Create new Order
+
+```http
+POST /orders
 ```
 
 
