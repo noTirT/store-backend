@@ -19,7 +19,7 @@ public class ArtPieceLinkList {
 
     private Float prize;
 
-    private String[] imagelink;
+    private String[] imagelinks;
 
     private String description;
 
@@ -32,7 +32,7 @@ public class ArtPieceLinkList {
                 .prize(item.getPrize())
                 .description(item.getDescription())
                 .category(item.getCategory())
-                .imagelink(item.getImagelink().split(" "))
+                .imagelinks(item.getImagelink().split(" "))
                 .build();
     }
 }

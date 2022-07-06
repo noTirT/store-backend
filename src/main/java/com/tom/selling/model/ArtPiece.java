@@ -53,7 +53,7 @@ public class ArtPiece {
                 .prize(rawItem.getPrize())
                 .description(rawItem.getDescription())
                 .category(rawItem.getCategory())
-                .imagelink(String.join(" ", rawItem.getImagelink()))
+                .imagelink(String.join(" ", rawItem.getImagelinks()))
                 .build();
     }
 }
