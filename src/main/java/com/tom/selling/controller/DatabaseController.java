@@ -1,6 +1,7 @@
 package com.tom.selling.controller;
 
 import com.tom.selling.model.ArtPiece;
+import com.tom.selling.model.ArtPieceLinkList;
 import com.tom.selling.model.Category;
 import com.tom.selling.model.Order;
 import com.tom.selling.service.DataService;
@@ -28,25 +29,24 @@ public class DatabaseController {
     private DataService dataService;
 
     @GetMapping("/art/all")
-    public ResponseEntity<List<ArtPiece>> getAllData() {
+    public ResponseEntity<List<ArtPieceLinkList>> getAllData() {
         return new ResponseEntity<>(this.dataService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/art/id/{id}")
-    public ResponseEntity<ArtPiece> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(this.dataService.getById(id).orElseThrow(), HttpStatus.OK);
+    public ResponseEntity<ArtPieceLinkList> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(ArtPieceLinkList.of(this.dataService.getById(id).orElseThrow()), HttpStatus.OK);
     }
 
     @PostMapping("/art")
-    public ResponseEntity<Void> createNew(@RequestBody ArtPiece artPiece) {
-        this.dataService.createNew(artPiece);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> createNew(@RequestBody(required = false) ArtPieceLinkList artPiece) {
+        if(artPiece != null) {
+            this.dataService.createNew(ArtPiece.of(artPiece));
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/categories/all")
-    public ResponseEntity<List<Category>> getAllCategories() {
-        return new ResponseEntity<>(this.dataService.getAllCategories(), HttpStatus.OK);
-    }
 
     @DeleteMapping("/art/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
@@ -58,6 +58,11 @@ public class DatabaseController {
     public ResponseEntity<?> deleteAll() {
         this.dataService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/categories/all")
+    public ResponseEntity<List<Category>> getAllCategories() {
+        return new ResponseEntity<>(this.dataService.getAllCategories(), HttpStatus.OK);
     }
 
     @GetMapping("/orders/all")

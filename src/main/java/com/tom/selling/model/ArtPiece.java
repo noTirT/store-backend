@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Array;
 
 @Entity
 @Data
@@ -31,7 +32,7 @@ public class ArtPiece {
     private Float prize;
 
     @Column
-    private String[] imagelink;
+    private String imagelink;
 
     @Column
     private String description;
@@ -43,4 +44,13 @@ public class ArtPiece {
         this.name = name;
     }
 
+    public static ArtPiece of(ArtPieceLinkList rawItem){
+        return ArtPiece.builder()
+                .name(rawItem.getName())
+                .prize(rawItem.getPrize())
+                .description(rawItem.getDescription())
+                .category(rawItem.getCategory())
+                .imagelink(String.join(" ", rawItem.getImagelink()))
+                .build();
+    }
 }

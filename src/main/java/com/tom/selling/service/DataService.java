@@ -1,6 +1,7 @@
 package com.tom.selling.service;
 
 import com.tom.selling.model.ArtPiece;
+import com.tom.selling.model.ArtPieceLinkList;
 import com.tom.selling.model.Category;
 import com.tom.selling.model.Order;
 import com.tom.selling.repository.ArtRepository;
@@ -28,9 +29,10 @@ public class DataService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public List<ArtPiece> getAll() {
+    public List<ArtPieceLinkList> getAll() {
         return StreamSupport
                 .stream(artRepository.findAll().spliterator(), false)
+                .map(ArtPieceLinkList::of)
                 .collect(Collectors.toList());
     }
 
