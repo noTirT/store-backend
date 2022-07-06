@@ -20,7 +20,6 @@ import java.sql.Array;
 @NoArgsConstructor
 @Table(name = "artpieces")
 @Builder
-@Slf4j
 public class ArtPiece {
 
     @Id
@@ -47,7 +46,6 @@ public class ArtPiece {
     }
 
     public static ArtPiece of(ArtPieceLinkList rawItem){
-        log.info(rawItem.toString());
         return ArtPiece.builder()
                 .name(rawItem.getName())
                 .prize(rawItem.getPrize())
