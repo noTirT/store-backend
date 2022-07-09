@@ -28,7 +28,7 @@ public class ArtPieceDbo {
     private String name;
 
     @Column
-    private Float prize;
+    private Float price;
 
     @Column
     private String imagelink;
@@ -46,7 +46,7 @@ public class ArtPieceDbo {
     public static ArtPieceDbo of(ArtPieceLinkList rawItem){
         return ArtPieceDbo.builder()
                 .name(rawItem.getName())
-                .prize(rawItem.getPrize())
+                .price(rawItem.getPrice())
                 .description(rawItem.getDescription())
                 .categoryid(rawItem.getCategory().getId())
                 .imagelink(String.join(" ", rawItem.getImagelinks()))

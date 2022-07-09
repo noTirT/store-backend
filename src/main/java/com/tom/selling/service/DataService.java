@@ -8,6 +8,7 @@ import com.tom.selling.model.Category;
 import com.tom.selling.model.Order;
 import com.tom.selling.repository.ArtRepository;
 import com.tom.selling.repository.CategoryRepository;
+import com.tom.selling.repository.OrderItemRepository;
 import com.tom.selling.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class DataService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     public List<ArtPieceLinkList> getAll() {
         return StreamSupport
@@ -56,9 +60,9 @@ public class DataService {
             if (category.isPresent()) {
                 return ArtPieceLinkList.of(artPieceOptional.get(), category.get());
             }
-            throw new CategoryNotFoundException("No category with the id " + artPieceOptional.get().getCategoryid() + " found");
+            return ArtPieceLinkList.of(artPieceOptional.get(), new Category(-1L, "No category provided"));
         }
-        throw new ItemNotFoundException("No item with the id " + id + " found");
+        throw new ItemNotFoundException(id);
     }
 
     public void createNew(ArtPieceLinkList artPiece) {
@@ -67,7 +71,6 @@ public class DataService {
         }
         artRepository.save(ArtPieceDbo.of(artPiece));
     }
-
 
     public void deleteById(Long id) {
         this.artRepository.deleteById(id);

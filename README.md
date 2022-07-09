@@ -8,6 +8,7 @@ Backend for a simple store
     * [Project definition](#project-definition)
     * [Features](#features)
 * [Technologies](#technologies)
+    * [Database Model](#database-model)
     * [Dependencies](#dependencies)
 * [Api Endpoints](#api-endpoints)
 
@@ -26,6 +27,10 @@ Simple store without payment option (for now) built for a friend's mom
 - Java 17
 - Java Spring Boot 2.6.6
 - PostgreSQL as database
+
+### Database Model
+
+![alt.text](./src/main/resources/static/DatabaseModel.png)
 
 ### Dependencies
 

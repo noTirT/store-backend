@@ -16,24 +16,23 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
+@Table(name="orderItems")
 @Builder
-public class Order {
+public class OrderItem {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "orders_id_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "orderitems_id_seq")
     private Long id;
 
     @Column
-    private Float total;
+    private Long itemId;
 
     @Column
-    private String customeremail;
+    private Long orderId;
 
     @Column
-    private Long orderedattimestamp;
+    private int amount;
 
     @Column
-    private boolean fullfilled;
-
-    //todo order can contain multiple items; update readme file
+    private float totalPrice;
 }

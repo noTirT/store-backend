@@ -15,7 +15,7 @@ public class ArtPieceLinkList {
 
     private String name;
 
-    private Float prize;
+    private Float price;
 
     private String[] imagelinks;
 
@@ -27,7 +27,7 @@ public class ArtPieceLinkList {
         return ArtPieceLinkList.builder()
                 .id(item.getId())
                 .name(item.getName())
-                .prize(item.getPrize())
+                .price(item.getPrice())
                 .description(item.getDescription())
                 .category(category == null ? new Category(-1L, "No category provided") : category)
                 .imagelinks(item.getImagelink().split(" "))
