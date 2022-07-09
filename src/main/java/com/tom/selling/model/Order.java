@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Builder
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "artpieces_id_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "orders_id_seq")
     private Long id;
 
     @Column

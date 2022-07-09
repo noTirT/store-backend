@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Array;
 
 @Entity
 @Data
@@ -20,7 +18,7 @@ import java.sql.Array;
 @NoArgsConstructor
 @Table(name = "artpieces")
 @Builder
-public class ArtPiece {
+public class ArtPieceDbo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "artpieces_id_seq")
@@ -41,16 +39,16 @@ public class ArtPiece {
     @Column
     private Long categoryid;
 
-    public ArtPiece(String name) {
+    public ArtPieceDbo(String name) {
         this.name = name;
     }
 
-    public static ArtPiece of(ArtPieceLinkList rawItem){
-        return ArtPiece.builder()
+    public static ArtPieceDbo of(ArtPieceLinkList rawItem){
+        return ArtPieceDbo.builder()
                 .name(rawItem.getName())
                 .prize(rawItem.getPrize())
                 .description(rawItem.getDescription())
-                .categoryid(rawItem.getCategoryid())
+                .categoryid(rawItem.getCategory().getId())
                 .imagelink(String.join(" ", rawItem.getImagelinks()))
                 .build();
     }

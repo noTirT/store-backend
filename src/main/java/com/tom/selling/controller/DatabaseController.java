@@ -1,6 +1,5 @@
 package com.tom.selling.controller;
 
-import com.tom.selling.model.ArtPiece;
 import com.tom.selling.model.ArtPieceLinkList;
 import com.tom.selling.model.Category;
 import com.tom.selling.model.Order;
@@ -35,13 +34,13 @@ public class DatabaseController {
 
     @GetMapping("/art/id/{id}")
     public ResponseEntity<ArtPieceLinkList> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(ArtPieceLinkList.of(this.dataService.getById(id).orElseThrow()), HttpStatus.OK);
+        return new ResponseEntity<>(this.dataService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping("/art")
     public ResponseEntity<Void> createNew(@RequestBody(required = false) ArtPieceLinkList artPiece) {
-        if(artPiece != null) {
-            this.dataService.createNew(ArtPiece.of(artPiece));
+        if (artPiece != null) {
+            this.dataService.createNew(artPiece);
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
@@ -67,23 +66,23 @@ public class DatabaseController {
     }
 
     @GetMapping("/orders/all")
-    public ResponseEntity<List<Order>> getAllOrders(){
+    public ResponseEntity<List<Order>> getAllOrders() {
         return new ResponseEntity<>(this.dataService.getAllOrders(), HttpStatus.OK);
     }
 
     @GetMapping("/orders/{id}")
-    public ResponseEntity<Order> getOderByID(@PathVariable Long id){
+    public ResponseEntity<Order> getOderByID(@PathVariable Long id) {
         return new ResponseEntity<>(this.dataService.getOrderByID(id).orElseThrow(), HttpStatus.OK);
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Void> placeNewOrder(@RequestBody Order newOrder){
+    public ResponseEntity<Void> placeNewOrder(@RequestBody Order newOrder) {
         this.dataService.placeNewOrder(newOrder);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/orders")
-    public ResponseEntity<Void> updateOrder(@RequestBody Order updatedOrder){
+    public ResponseEntity<Void> updateOrder(@RequestBody Order updatedOrder) {
         this.dataService.updateOrder(updatedOrder);
         return new ResponseEntity<>(HttpStatus.OK);
     }

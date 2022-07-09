@@ -1,6 +1,8 @@
 package com.tom.selling.service;
 
-import com.tom.selling.model.ArtPiece;
+import com.tom.selling.exception.CategoryNotFoundException;
+import com.tom.selling.exception.ItemNotFoundException;
+import com.tom.selling.model.ArtPieceDbo;
 import com.tom.selling.model.ArtPieceLinkList;
 import com.tom.selling.model.Category;
 import com.tom.selling.model.Order;
@@ -32,7 +34,12 @@ public class DataService {
     public List<ArtPieceLinkList> getAll() {
         return StreamSupport
                 .stream(artRepository.findAll().spliterator(), false)
-                .map(ArtPieceLinkList::of)
+                .map(artPieceDbo -> {
+                    Optional<Category> categoryOptional = categoryRepository.findById(artPieceDbo.getCategoryid());
+                    if (categoryOptional.isPresent())
+                        return ArtPieceLinkList.of(artPieceDbo, categoryOptional.get());
+                    return ArtPieceLinkList.of(artPieceDbo, null);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -42,25 +49,25 @@ public class DataService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ArtPiece> getById(Long id) {
-        return artRepository.findById(id);
-    }
-
-    public void createNew(ArtPiece artPiece) {
-        Category artCategory = getCategoryById(artPiece.getCategoryid());
-        if(artCategory != null) {
-            if (!getCategoryNames(getAllCategories()).contains(artCategory.getCategoryname())) {
-                categoryRepository.save(new Category(artCategory.getCategoryname()));
+    public ArtPieceLinkList getById(Long id) {
+        Optional<ArtPieceDbo> artPieceOptional = artRepository.findById(id);
+        if (artPieceOptional.isPresent()) {
+            Optional<Category> category = categoryRepository.findById(artPieceOptional.get().getCategoryid());
+            if (category.isPresent()) {
+                return ArtPieceLinkList.of(artPieceOptional.get(), category.get());
             }
+            throw new CategoryNotFoundException("No category with the id " + artPieceOptional.get().getCategoryid() + " found");
         }
-        artRepository.save(artPiece);
+        throw new ItemNotFoundException("No item with the id " + id + " found");
     }
 
-    public Category getCategoryById(Long id){return categoryRepository.findById(id).orElse(null);}
-
-    private List<String> getCategoryNames(List<Category> categories) {
-        return categories.stream().map(Category::getCategoryname).collect(Collectors.toList());
+    public void createNew(ArtPieceLinkList artPiece) {
+        if (!categoryRepository.existsById(artPiece.getCategory().getId())) {
+            categoryRepository.save(artPiece.getCategory());
+        }
+        artRepository.save(ArtPieceDbo.of(artPiece));
     }
+
 
     public void deleteById(Long id) {
         this.artRepository.deleteById(id);

@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Optional;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,15 +21,15 @@ public class ArtPieceLinkList {
 
     private String description;
 
-    private Long categoryid;
+    private Category category;
 
-    public static ArtPieceLinkList of(ArtPiece item){
+    public static ArtPieceLinkList of(ArtPieceDbo item, Category category) {
         return ArtPieceLinkList.builder()
                 .id(item.getId())
                 .name(item.getName())
                 .prize(item.getPrize())
                 .description(item.getDescription())
-                .categoryid(item.getCategoryid())
+                .category(category == null ? new Category(-1L, "No category provided") : category)
                 .imagelinks(item.getImagelink().split(" "))
                 .build();
     }
