@@ -23,7 +23,7 @@ public class ArtPieceLinkList {
 
     private String description;
 
-    private String category;
+    private Long categoryid;
 
     public static ArtPieceLinkList of(ArtPiece item){
         return ArtPieceLinkList.builder()
@@ -31,7 +31,7 @@ public class ArtPieceLinkList {
                 .name(item.getName())
                 .prize(item.getPrize())
                 .description(item.getDescription())
-                .category(item.getCategory())
+                .categoryid(item.getCategoryid())
                 .imagelinks(item.getImagelink().split(" "))
                 .build();
     }

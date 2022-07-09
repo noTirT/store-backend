@@ -39,7 +39,7 @@ public class ArtPiece {
     private String description;
 
     @Column
-    private String category;
+    private Long categoryid;
 
     public ArtPiece(String name) {
         this.name = name;
@@ -50,7 +50,7 @@ public class ArtPiece {
                 .name(rawItem.getName())
                 .prize(rawItem.getPrize())
                 .description(rawItem.getDescription())
-                .category(rawItem.getCategory())
+                .categoryid(rawItem.getCategoryid())
                 .imagelink(String.join(" ", rawItem.getImagelinks()))
                 .build();
     }
