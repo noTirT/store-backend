@@ -47,14 +47,16 @@ public class DataService {
     }
 
     public void createNew(ArtPiece artPiece) {
-        String categoryName = getCategoryById(artPiece.getCategoryid()).getCategoryname();
-        if (!getCategoryNames(getAllCategories()).contains(categoryName)) {
-            categoryRepository.save(new Category(categoryName));
+        Category artCategory = getCategoryById(artPiece.getCategoryid());
+        if(artCategory != null) {
+            if (!getCategoryNames(getAllCategories()).contains(artCategory.getCategoryname())) {
+                categoryRepository.save(new Category(artCategory.getCategoryname()));
+            }
         }
         artRepository.save(artPiece);
     }
 
-    public Category getCategoryById(Long id){return categoryRepository.findById(id).orElseThrow();}
+    public Category getCategoryById(Long id){return categoryRepository.findById(id).orElse(null);}
 
     private List<String> getCategoryNames(List<Category> categories) {
         return categories.stream().map(Category::getCategoryname).collect(Collectors.toList());
