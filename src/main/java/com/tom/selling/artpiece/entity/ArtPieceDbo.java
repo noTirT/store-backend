@@ -41,7 +41,7 @@ public class ArtPieceDbo {
     @Column(name = "PRICE")
     private Float price;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ARTPIECE", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ImageLinkDbo> imageLinks;
 
     @Column(name = "DESCRIPTION")
@@ -51,7 +51,7 @@ public class ArtPieceDbo {
     @JoinColumn(name = "CATEGORY_ID", nullable = false, referencedColumnName = "CATEGORY_ID")
     private CategoryDbo category;
 
-    @OneToMany(mappedBy = "artpiece", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<OrderItemDbo> orders;
 
     public static ArtPieceDbo of(ArtPieceDto rawItem){

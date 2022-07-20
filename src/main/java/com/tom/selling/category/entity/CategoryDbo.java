@@ -34,7 +34,7 @@ public class CategoryDbo {
     @Column(name = "CATEGORY_NAME")
     private String categoryname;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "CATEGORY", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ArtPieceDbo> artPieceDbos;
 
 
