@@ -48,7 +48,7 @@ public class ArtPieceDbo {
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CATEGORY_ID", nullable = false, referencedColumnName = "CATEGORY_ID")
+    @JoinColumn(name = "CATEGORY_ID", nullable = false, referencedColumnName = "ID")
     private CategoryDbo category;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -59,7 +59,7 @@ public class ArtPieceDbo {
                 .name(rawItem.getName())
                 .price(rawItem.getPrice())
                 .description(rawItem.getDescription())
-                .category(rawItem.getCategoryDbo())
+                .category(CategoryDbo.of(rawItem.getCategoryDbo()))
                 .imageLinks(rawItem.getImageLinks().stream().map(ImageLinkDbo::of).collect(Collectors.toSet()))
                 .build();
     }

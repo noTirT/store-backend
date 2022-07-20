@@ -1,6 +1,7 @@
 package com.tom.selling.artpiece.entity;
 
 import com.tom.selling.category.entity.CategoryDbo;
+import com.tom.selling.category.entity.CategoryDto;
 import com.tom.selling.imagelink.entity.ImageLinkDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +27,7 @@ public class ArtPieceDto {
 
     private String description;
 
-    private CategoryDbo categoryDbo;
+    private CategoryDto categoryDbo;
 
     public static ArtPieceDto of(ArtPieceDbo item) {
         return ArtPieceDto.builder()
@@ -34,7 +35,7 @@ public class ArtPieceDto {
                 .name(item.getName())
                 .price(item.getPrice())
                 .description(item.getDescription())
-                .categoryDbo(item.getCategory())
+                .categoryDbo(CategoryDto.of(item.getCategory()))
                 .imageLinks(item.getImageLinks().stream().map(ImageLinkDto::of).collect(Collectors.toSet()))
                 .build();
     }
