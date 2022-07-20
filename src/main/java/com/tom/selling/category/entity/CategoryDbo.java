@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class CategoryDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CATEGORY_ID")
     private Long id;
 
