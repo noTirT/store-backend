@@ -29,7 +29,7 @@ public class CategoryDbo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "category_id_seq")
-    @Column(name = "CATEGORY_ID")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "CATEGORY_NAME")
