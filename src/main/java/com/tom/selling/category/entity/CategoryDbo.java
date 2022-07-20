@@ -45,7 +45,6 @@ public class CategoryDbo {
     public static CategoryDbo of (CategoryDto dto){
         return CategoryDbo.builder()
                 .categoryname(dto.getCategoryName())
-                .id(dto.getId())
                 .build();
     }
 }
