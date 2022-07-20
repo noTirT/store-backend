@@ -16,13 +16,11 @@ import java.util.stream.Collectors;
 public class CategoryDto {
     private Long id;
     private String categoryName;
-    private Set<ArtPieceDto> artPieceDtos;
 
     public static CategoryDto of(CategoryDbo categoryDbo) {
         return CategoryDto.builder()
                 .id(categoryDbo.getId())
                 .categoryName(builder().categoryName)
-                .artPieceDtos(categoryDbo.getArtPieceDbos().stream().map(ArtPieceDto::of).collect(Collectors.toSet()))
                 .build();
     }
 }

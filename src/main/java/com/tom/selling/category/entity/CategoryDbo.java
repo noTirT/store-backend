@@ -46,7 +46,6 @@ public class CategoryDbo {
         return CategoryDbo.builder()
                 .categoryname(dto.getCategoryName())
                 .id(dto.getId())
-                .artPieceDbos(dto.getArtPieceDtos().stream().map(ArtPieceDbo::of).collect(Collectors.toSet()))
                 .build();
     }
 }
