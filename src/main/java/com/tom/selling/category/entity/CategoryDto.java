@@ -1,13 +1,9 @@
 package com.tom.selling.category.entity;
 
-import com.tom.selling.artpiece.entity.ArtPieceDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +16,13 @@ public class CategoryDto {
     public static CategoryDto of(CategoryDbo categoryDbo) {
         return CategoryDto.builder()
                 .id(categoryDbo.getId())
-                .categoryName(builder().categoryName)
+                .categoryName(categoryDbo.getCategoryName())
+                .build();
+    }
+    public static CategoryDto of(CategoryDto categoryDto) {
+        return CategoryDto.builder()
+                .id(categoryDto.getId())
+                .categoryName(categoryDto.getCategoryName())
                 .build();
     }
 }

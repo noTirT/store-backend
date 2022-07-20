@@ -13,4 +13,11 @@ import lombok.NoArgsConstructor;
 public class CategoryResponse {
     private Long id;
     private String categoryName;
+
+    public static CategoryResponse of(CategoryDto dto){
+        return CategoryResponse.builder()
+                .id(dto.getId())
+                .categoryName(dto.getCategoryName())
+                .build();
+    }
 }

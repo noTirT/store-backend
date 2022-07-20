@@ -15,5 +15,11 @@ public class OrderItemResponse {
     private Long id;
     private ArtPieceResponse artPieceResponse;
     private int amount;
-    private float totalPrice;
+
+    public static OrderItemResponse of(OrderItemDto dto){
+        return OrderItemResponse.builder()
+                .id(dto.getId())
+                .artPieceResponse(ArtPieceResponse.of(dto.getArtPieceDto()))
+                .amount(dto.getAmount()).build();
+    }
 }

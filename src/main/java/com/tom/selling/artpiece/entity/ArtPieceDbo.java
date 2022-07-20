@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 public class ArtPieceDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "artpieces_id_seq")
-    @Column(name="ARTPIECE_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "artpiece_id_seq")
+    @Column(name="ID")
     private Long id;
 
     @Column(name="NAME")
@@ -41,9 +41,6 @@ public class ArtPieceDbo {
     @Column(name = "PRICE")
     private Float price;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<ImageLinkDbo> imageLinks;
-
     @Column(name = "DESCRIPTION")
     private String description;
 
@@ -51,16 +48,12 @@ public class ArtPieceDbo {
     @JoinColumn(name = "CATEGORY_ID", nullable = false, referencedColumnName = "ID")
     private CategoryDbo category;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<OrderItemDbo> orders;
-
-    public static ArtPieceDbo of(ArtPieceDto rawItem){
+    public static ArtPieceDbo of(ArtPieceDto dto){
         return ArtPieceDbo.builder()
-                .name(rawItem.getName())
-                .price(rawItem.getPrice())
-                .description(rawItem.getDescription())
-                .category(CategoryDbo.of(rawItem.getCategoryDbo()))
-                .imageLinks(rawItem.getImageLinks().stream().map(ImageLinkDbo::of).collect(Collectors.toSet()))
+                .name(dto.getName())
+                .price(dto.getPrice())
+                .description(dto.getDescription())
+                .category(CategoryDbo.of(dto.getCategoryDto()))
                 .build();
     }
 }

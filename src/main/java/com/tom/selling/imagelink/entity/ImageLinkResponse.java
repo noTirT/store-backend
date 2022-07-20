@@ -13,4 +13,11 @@ import lombok.NoArgsConstructor;
 public class ImageLinkResponse {
     private Long id;
     private String link;
+
+    public static ImageLinkResponse of(ImageLinkDto dto){
+        return ImageLinkResponse.builder()
+                .id(dto.getId())
+                .link(dto.getLink())
+                .build();
+    }
 }

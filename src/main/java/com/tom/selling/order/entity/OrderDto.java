@@ -17,19 +17,18 @@ public class OrderDto {
 
     private Long id;
     private String customerEmail;
-    private boolean fullFilled;
+    private boolean completed;
     private Long dateOrderedAt;
     private Float total;
-    private List<OrderItemDto> orderItems;
 
     public static OrderDto of(OrderDbo orderDbo) {
         return OrderDto.builder()
                 .id(orderDbo.getId())
-                .customerEmail(orderDbo.getCustomeremail())
-                .fullFilled(orderDbo.isFullfilled())
-                .dateOrderedAt(orderDbo.getOrderedattimestamp())
+                .customerEmail(orderDbo.getCustomerEmail())
+                .completed(orderDbo.isCompleted())
+                .dateOrderedAt(orderDbo.getOrderedAtTimestamp())
                 .total(orderDbo.getTotal())
-                .orderItems(orderDbo.getOrderItems().stream().map(OrderItemDto::of).collect(Collectors.toList())).build();
+                .build();
     }
 
 }

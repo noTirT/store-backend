@@ -23,11 +23,9 @@ public class ArtPieceDto {
 
     private Float price;
 
-    private Set<ImageLinkDto> imageLinks;
-
     private String description;
 
-    private CategoryDto categoryDbo;
+    private CategoryDto categoryDto;
 
     public static ArtPieceDto of(ArtPieceDbo item) {
         return ArtPieceDto.builder()
@@ -35,8 +33,16 @@ public class ArtPieceDto {
                 .name(item.getName())
                 .price(item.getPrice())
                 .description(item.getDescription())
-                .categoryDbo(CategoryDto.of(item.getCategory()))
-                .imageLinks(item.getImageLinks().stream().map(ImageLinkDto::of).collect(Collectors.toSet()))
+                .categoryDto(CategoryDto.of(item.getCategory()))
+                .build();
+    }
+
+    public static ArtPieceDto of(ArtPieceRequest request, CategoryDto category){
+        return ArtPieceDto.builder()
+                .name(request.getName())
+                .price(request.getPrice())
+                .description(request.getDescription())
+                .categoryDto(category)
                 .build();
     }
 }

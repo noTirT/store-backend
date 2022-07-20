@@ -2,6 +2,8 @@ package com.tom.selling.category.boundary;
 
 import com.tom.selling.category.entity.CategoryDto;
 import com.tom.selling.category.control.CategoryService;
+import com.tom.selling.category.entity.CategoryRequest;
+import com.tom.selling.category.entity.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -28,28 +31,22 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<CategoryDto>> getAllCategories() {
-        return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        return new ResponseEntity<>(categoryService.getAll().stream().map(CategoryResponse::of).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) {
-        return new ResponseEntity<>(categoryService.getById(id), HttpStatus.OK);
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable Long id) {
+        return new ResponseEntity<>(CategoryResponse.of(categoryService.getById(id)), HttpStatus.OK);
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> createNewCategory(@RequestBody(required = false) CategoryDto categoryDto) {
-        if (categoryDto != null) {
-            categoryService.createNew(categoryDto);
+    public ResponseEntity<Void> createNewCategory(@RequestBody(required = false) CategoryRequest request) {
+        if (request != null) {
+            categoryService.createNew(request);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    @DeleteMapping("/all")
-    public ResponseEntity<Void> deleteAllCategories() {
-        categoryService.deleteAll();
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

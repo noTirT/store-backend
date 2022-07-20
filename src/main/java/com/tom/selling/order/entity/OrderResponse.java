@@ -16,8 +16,17 @@ import java.util.List;
 public class OrderResponse {
     private Long id;
     private String customerEmail;
-    private boolean fullFilled;
+    private boolean completed;
     private Long dateOrderedAt;
     private Float total;
-    private List<OrderItemResponse> orderItems;
+
+    public static OrderResponse of(OrderDto dto){
+        return OrderResponse.builder()
+                .id(dto.getId())
+                .customerEmail(dto.getCustomerEmail())
+                .completed(dto.isCompleted())
+                .dateOrderedAt(dto.getDateOrderedAt())
+                .total(dto.getTotal())
+                .build();
+    }
 }

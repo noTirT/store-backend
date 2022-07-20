@@ -13,13 +13,4 @@ public class SellingApplication {
         SpringApplication.run(SellingApplication.class, args);
     }
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Store application")
-                        .version("Some version")
-                        .description("Backend for a store application")
-                );
-    }
 }

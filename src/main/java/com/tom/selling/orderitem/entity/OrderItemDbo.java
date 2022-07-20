@@ -26,19 +26,19 @@ import javax.persistence.Table;
 public class OrderItemDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "orderitems_id_seq")
-    @Column(name = "ORDERITEM_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "orderitem_id_seq")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "AMOUNT")
     private int amount;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID", nullable = false, referencedColumnName = "ORDER_ID")
+    @JoinColumn(name = "ORDER_ID", nullable = false, referencedColumnName = "ID")
     private OrderDbo order;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ITEM_ID", nullable = false, referencedColumnName = "ARTPIECE_ID")
+    @JoinColumn(name = "ITEM_ID", nullable = false, referencedColumnName = "ID")
     private ArtPieceDbo artPiece;
 
     public static OrderItemDbo of(OrderItemDto dto){

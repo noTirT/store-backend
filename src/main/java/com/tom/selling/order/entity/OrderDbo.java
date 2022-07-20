@@ -26,35 +26,29 @@ import java.util.stream.Collectors;
 @Builder
 public class OrderDbo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "orders_id_seq")
-    @Column(name="ORDER_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "artorder_id_seq")
+    @Column(name="ID")
     private Long id;
 
     @Column(name="TOTAL")
     private Float total;
 
     @Column(name="CUSTOMER_EMAIL")
-    private String customeremail;
+    private String customerEmail;
 
     @Column(name="ORDERED_AT_TIMESTAMP")
-    private Long orderedattimestamp;
+    private Long orderedAtTimestamp;
 
-    @Column(name="FULLFILLED")
-    private boolean fullfilled;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<OrderItemDbo> orderItems;
-
-    //todo order can contain multiple items; update readme file
+    @Column(name="COMPLETED")
+    private boolean completed;
 
     public static OrderDbo of(OrderDto dto){
         return OrderDbo.builder()
                 .id(dto.getId())
                 .total(dto.getTotal())
-                .customeremail(dto.getCustomerEmail())
-                .orderedattimestamp(dto.getDateOrderedAt())
-                .fullfilled(dto.isFullFilled())
-                .orderItems(dto.getOrderItems().stream().map(OrderItemDbo::of).collect(Collectors.toSet()))
+                .customerEmail(dto.getCustomerEmail())
+                .orderedAtTimestamp(dto.getDateOrderedAt())
+                .completed(dto.isCompleted())
                 .build();
     }
 }

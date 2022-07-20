@@ -25,15 +25,15 @@ import javax.persistence.Table;
 public class ImageLinkDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "imagelink_id_seq")
-    @Column(name = "IMAGE_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "image_id_seq")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "LINK")
     private String link;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ARTPIECE_ID", referencedColumnName = "ARTPIECE_ID", nullable = false)
+    @JoinColumn(name = "ARTPIECE_ID", referencedColumnName = "ID", nullable = false)
     private ArtPieceDbo artPieceDbo;
 
     public static ImageLinkDbo of(ImageLinkDto dto){
@@ -42,5 +42,10 @@ public class ImageLinkDbo {
                 .link(dto.getLink())
                 .artPieceDbo(ArtPieceDbo.of(dto.getArtPieceDto()))
                 .build();
+    }
+
+    public ImageLinkDbo(String link, ArtPieceDbo artPieceDbo){
+        this.link = link;
+        this.artPieceDbo = artPieceDbo;
     }
 }
