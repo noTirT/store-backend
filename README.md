@@ -9,6 +9,7 @@ Backend for a simple store
     * [Features](#features)
 * [Technologies](#technologies)
     * [Database Model](#database-model)
+    * [Class Diagram](#class-diagram)
     * [Dependencies](#dependencies)
 * [Api Endpoints](#api-endpoints)
 
@@ -31,6 +32,10 @@ Simple store without payment option (for now) built for a friend's mom
 ### Database Model
 
 ![alt.text](./src/main/resources/static/DatabaseModel.png)
+
+### Class Diagram
+
+![alt.text](./src/main/resources/static/ShopBackendClassdiagram.png)
 
 ### Dependencies
 
@@ -89,7 +94,7 @@ POST /art
 | prize | Float | Price of the item |
 | imagelink | String | Link to an image of the item |
 | description | String | Description of the item |
-| category | String | Category of the item |
+| categoryDbo | String | Category of the item |
 
 ### Get All Items
 
@@ -107,7 +112,7 @@ Response:
     "prize": "float",
     "imagelinke": "string",
     "description": "string",
-    "category": "string"
+    "categoryDbo": "string"
   }
 ]
 ```
@@ -129,7 +134,7 @@ GET /art/id/{id}
     "prize": "float",
     "imagelink": "string",
     "description": "string",
-    "category": "string"
+    "categoryDbo": "string"
   }
 ```
 
@@ -188,7 +193,7 @@ GET /orders/{id}
 
 |Body-parameter | Type | Description |
 | :--- | :--- | :---|
-| id | String | ID of the requested order |
+| id | String | ID of the requested orderDbo |
 
 ```json
 {
