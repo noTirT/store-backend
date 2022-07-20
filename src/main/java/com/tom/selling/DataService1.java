@@ -65,9 +65,9 @@ public class DataService1 {
     }
 
     public void createNew(ArtPieceDto artPiece) {
-        if (!categoryRepository.existsById(artPiece.getCategoryDbo().getId())) {
-            categoryRepository.save(artPiece.getCategoryDbo());
-        }
+        /*if (!categoryRepository.existsById(artPiece.getCategoryDbo().getId())) {
+            categoryRepository.save(artPiece.);
+        }*/
         artRepository.save(ArtPieceDbo.of(artPiece));
     }
 
