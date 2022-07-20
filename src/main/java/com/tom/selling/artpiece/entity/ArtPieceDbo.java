@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "artpiece")
+@Table(name = "ARTPIECE")
 @Builder
 public class ArtPieceDbo {
 
@@ -41,7 +41,7 @@ public class ArtPieceDbo {
     @Column(name = "PRICE")
     private Float price;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "artpiece", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ARTPIECE", cascade = CascadeType.ALL)
     private Set<ImageLinkDbo> imageLinks;
 
     @Column(name = "DESCRIPTION")

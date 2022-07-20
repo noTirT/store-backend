@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "artorder")
+@Table(name = "ARTORDER")
 @Builder
 public class OrderDbo {
     @Id
@@ -41,7 +41,7 @@ public class OrderDbo {
     @Column(name="FULLFILLED")
     private boolean fullfilled;
 
-    @OneToMany(mappedBy = "artorder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ARTORDER", cascade = CascadeType.ALL)
     private Set<OrderItemDbo> orderItems;
 
     //todo order can contain multiple items; update readme file

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "category")
+@Table(name = "CATEGORY")
 @Builder
 public class CategoryDbo {
 
@@ -34,7 +34,7 @@ public class CategoryDbo {
     @Column(name = "CATEGORY_NAME")
     private String categoryname;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "CATEGORY", cascade = CascadeType.ALL)
     private Set<ArtPieceDbo> artPieceDbos;
 
 

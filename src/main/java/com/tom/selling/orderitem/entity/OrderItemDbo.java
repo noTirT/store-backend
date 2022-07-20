@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="orderitem")
+@Table(name="ORDERITEM")
 @Builder
 public class OrderItemDbo {
 

@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "image")
+@Table(name = "IMAGE")
 @Builder
 public class ImageLinkDbo {
 
