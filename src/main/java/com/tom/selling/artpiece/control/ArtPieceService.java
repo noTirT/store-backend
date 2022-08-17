@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
-public class ArtPieceService  {
+public class ArtPieceService {
 
     @Autowired
     private ArtRepository artRepository;
@@ -47,8 +47,11 @@ public class ArtPieceService  {
     }
 
     public void createNew(ArtPieceRequest request) {
-        CategoryDbo itemCategory = categoryRepository.findById(request.getCategoryID())
-                .orElseThrow(() -> new CategoryNotFoundException(request.getCategoryID()));
+        CategoryDbo itemCategory = categoryRepository.findById(request.getCategoryDto().getId())
+                .orElseGet(() -> {
+                    request.getCategoryDto().setId(null);
+                    return categoryRepository.save(CategoryDbo.of(request.getCategoryDto()));
+                });
 
         ArtPieceDbo artPieceDbo = new ArtPieceDbo();
         artPieceDbo.setCategory(itemCategory);
