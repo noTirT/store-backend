@@ -1,7 +1,7 @@
-package com.tom.selling.orderitem.entity;
+package com.tom.selling.order.entity.orderitem;
 
 import com.tom.selling.artpiece.entity.ArtPieceDto;
-import com.tom.selling.order.entity.OrderDto;
+import com.tom.selling.order.entity.order.OrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

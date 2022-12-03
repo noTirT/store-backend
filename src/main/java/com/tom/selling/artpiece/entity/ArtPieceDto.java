@@ -1,14 +1,12 @@
 package com.tom.selling.artpiece.entity;
 
-import com.tom.selling.category.entity.CategoryDbo;
 import com.tom.selling.category.entity.CategoryDto;
-import com.tom.selling.imagelink.entity.ImageLinkDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
@@ -27,6 +25,8 @@ public class ArtPieceDto {
 
     private CategoryDto categoryDto;
 
+    private List<ImageLinkDto> imageLinks;
+
     public static ArtPieceDto of(ArtPieceDbo item) {
         return ArtPieceDto.builder()
                 .id(item.getId())
@@ -34,6 +34,7 @@ public class ArtPieceDto {
                 .price(item.getPrice())
                 .description(item.getDescription())
                 .categoryDto(CategoryDto.of(item.getCategory()))
+                .imageLinks(item.getImageURLs().stream().map(ImageLinkDto::of).collect(Collectors.toList()))
                 .build();
     }
 

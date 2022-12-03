@@ -1,6 +1,5 @@
-package com.tom.selling.imagelink.entity;
+package com.tom.selling.artpiece.entity;
 
-import com.tom.selling.artpiece.entity.ArtPieceDbo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +39,6 @@ public class ImageLinkDbo {
         return ImageLinkDbo.builder()
                 .id(dto.getId())
                 .link(dto.getLink())
-                .artPieceDbo(ArtPieceDbo.of(dto.getArtPieceDto()))
                 .build();
     }
 

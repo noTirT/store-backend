@@ -1,6 +1,7 @@
-package com.tom.selling.order.entity;
+package com.tom.selling.order.entity.order;
 
-import com.tom.selling.orderitem.entity.OrderItemDto;
+import com.tom.selling.order.entity.orderitem.OrderItemDbo;
+import com.tom.selling.order.entity.orderitem.OrderItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class OrderDto {
     private boolean completed;
     private Long dateOrderedAt;
     private Float total;
+    private List<OrderItemDto> orderItems;
 
     public static OrderDto of(OrderDbo orderDbo) {
         return OrderDto.builder()
@@ -28,6 +30,17 @@ public class OrderDto {
                 .completed(orderDbo.isCompleted())
                 .dateOrderedAt(orderDbo.getOrderedAtTimestamp())
                 .total(orderDbo.getTotal())
+                .build();
+    }
+
+    public static OrderDto of(OrderDbo orderDbo, List<OrderItemDbo> orderItems) {
+        return OrderDto.builder()
+                .id(orderDbo.getId())
+                .customerEmail(orderDbo.getCustomerEmail())
+                .completed(orderDbo.isCompleted())
+                .dateOrderedAt(orderDbo.getOrderedAtTimestamp())
+                .total(orderDbo.getTotal())
+                .orderItems(orderItems.stream().map(OrderItemDto::of).collect(Collectors.toList()))
                 .build();
     }
 

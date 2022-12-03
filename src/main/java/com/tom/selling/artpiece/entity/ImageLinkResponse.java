@@ -1,4 +1,4 @@
-package com.tom.selling.imagelink.entity;
+package com.tom.selling.artpiece.entity;
 
 
 import lombok.AllArgsConstructor;

@@ -1,8 +1,6 @@
 package com.tom.selling.artpiece.entity;
 
-import com.tom.selling.category.entity.CategoryDto;
 import com.tom.selling.category.entity.CategoryResponse;
-import com.tom.selling.imagelink.entity.ImageLinkResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +18,7 @@ public class ArtPieceResponse {
     private Float price;
     private String description;
     private List<CategoryResponse> category;
+    private List<ImageLinkDto> imageLinks;
 
     public static ArtPieceResponse of(ArtPieceDto dto) {
         return ArtPieceResponse.builder()
@@ -28,6 +27,7 @@ public class ArtPieceResponse {
                 .price(dto.getPrice())
                 .description(dto.getDescription())
                 .category(List.of(CategoryResponse.of(dto.getCategoryDto())))
+                .imageLinks(dto.getImageLinks())
                 .build();
     }
 }

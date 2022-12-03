@@ -1,6 +1,6 @@
-package com.tom.selling.order.entity;
+package com.tom.selling.order.entity.order;
 
-import com.tom.selling.orderitem.entity.OrderItemRequest;
+import com.tom.selling.order.entity.orderitem.OrderItemRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +14,5 @@ import java.util.List;
 @Builder
 public class OrderRequest {
     private String customerEmail;
-    private Long orderedAtTimestamp;
     private List<OrderItemRequest> orderItems;
 }

@@ -1,4 +1,4 @@
-package com.tom.selling.orderitem.entity;
+package com.tom.selling.order.entity.orderitem;
 
 
 import lombok.AllArgsConstructor;

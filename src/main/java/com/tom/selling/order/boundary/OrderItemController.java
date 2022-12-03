@@ -1,8 +1,9 @@
-package com.tom.selling.imagelink.boundary;
+package com.tom.selling.order.boundary;
 
-import com.tom.selling.imagelink.entity.ImageLinkDto;
-import com.tom.selling.imagelink.control.ImageLinkService;
-import com.tom.selling.imagelink.entity.ImageLinkResponse;
+import com.tom.selling.order.control.repository.OrderItemRepository;
+import com.tom.selling.order.entity.orderitem.OrderItemDto;
+import com.tom.selling.order.control.service.OrderItemService;
+import com.tom.selling.order.entity.orderitem.OrderItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,25 +23,20 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/image-link")
-public class ImageLinkController {
+@RequestMapping("/order-item")
+public class OrderItemController {
 
-    @Autowired
-    private ImageLinkService imageLinkService;
+    private final OrderItemService service;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<ImageLinkResponse>> getAllImageLinks() {
-        return new ResponseEntity<>(imageLinkService.getAll().stream().map(ImageLinkResponse::of).collect(Collectors.toList()), HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ImageLinkResponse> getImageLinkById(@PathVariable Long id) {
-        return new ResponseEntity<>(ImageLinkResponse.of(imageLinkService.getById(id)), HttpStatus.OK);
+    @GetMapping("/{orderId}")
+    public ResponseEntity<List<OrderItemResponse>> getOrderItemsByOrderId(@PathVariable Long orderId) {
+        return new ResponseEntity<>(service.getOrdersByOrderId(orderId).stream().map(OrderItemResponse::of).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        imageLinkService.deleteById(id);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

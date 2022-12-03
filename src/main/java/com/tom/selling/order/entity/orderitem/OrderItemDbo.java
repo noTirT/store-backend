@@ -1,7 +1,7 @@
-package com.tom.selling.orderitem.entity;
+package com.tom.selling.order.entity.orderitem;
 
 import com.tom.selling.artpiece.entity.ArtPieceDbo;
-import com.tom.selling.order.entity.OrderDbo;
+import com.tom.selling.order.entity.order.OrderDbo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,13 +33,19 @@ public class OrderItemDbo {
     @Column(name = "AMOUNT")
     private int amount;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID", nullable = false, referencedColumnName = "ID")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")
     private OrderDbo order;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ITEM_ID", nullable = false, referencedColumnName = "ID")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ITEM_ID", referencedColumnName = "ID")
     private ArtPieceDbo artPiece;
+
+    public OrderItemDbo(int amount, OrderDbo order, ArtPieceDbo artPiece){
+        this.amount = amount;
+        this.order = order;
+        this.artPiece = artPiece;
+    }
 
     public static OrderItemDbo of(OrderItemDto dto){
         return OrderItemDbo.builder()

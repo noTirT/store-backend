@@ -1,7 +1,6 @@
 package com.tom.selling.artpiece.entity;
 
 
-import com.tom.selling.category.entity.CategoryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +15,7 @@ import java.util.List;
 public class ArtPieceRequest {
     private String name;
     private Float price;
-    private CategoryDto categoryDto;
+    private String categoryName;
     private List<String> imageURLs;
     private String description;
 }

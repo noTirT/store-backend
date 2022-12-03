@@ -1,8 +1,6 @@
 package com.tom.selling.artpiece.entity;
 
 import com.tom.selling.category.entity.CategoryDbo;
-import com.tom.selling.imagelink.entity.ImageLinkDbo;
-import com.tom.selling.orderitem.entity.OrderItemDbo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -48,12 +46,17 @@ public class ArtPieceDbo {
     @JoinColumn(name = "CATEGORY_ID", nullable = false, referencedColumnName = "ID")
     private CategoryDbo category;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artPieceDbo", cascade = CascadeType.ALL)
+    private List<ImageLinkDbo> imageURLs;
+
     public static ArtPieceDbo of(ArtPieceDto dto){
         return ArtPieceDbo.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .price(dto.getPrice())
                 .description(dto.getDescription())
                 .category(CategoryDbo.of(dto.getCategoryDto()))
+                .imageURLs(dto.getImageLinks().stream().map(ImageLinkDbo::of).collect(Collectors.toList()))
                 .build();
     }
 }

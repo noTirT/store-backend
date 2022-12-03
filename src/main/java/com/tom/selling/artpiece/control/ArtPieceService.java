@@ -5,10 +5,9 @@ import com.tom.selling.artpiece.entity.ArtPieceDto;
 import com.tom.selling.artpiece.entity.ArtPieceRequest;
 import com.tom.selling.category.control.CategoryRepository;
 import com.tom.selling.category.entity.CategoryDbo;
-import com.tom.selling.exception.CategoryNotFoundException;
 import com.tom.selling.exception.ItemNotFoundException;
-import com.tom.selling.imagelink.control.ImageLinkRepository;
-import com.tom.selling.imagelink.entity.ImageLinkDbo;
+import com.tom.selling.artpiece.entity.ImageLinkDbo;
+import com.tom.selling.exception.RequestValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,38 +21,27 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class ArtPieceService {
 
-    @Autowired
-    private ArtRepository artRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ImageLinkRepository imageLinkRepository;
+    private final ArtRepository artRepository;
+    private final CategoryRepository categoryRepository;
+    private final ImageLinkRepository imageLinkRepository;
 
     public List<ArtPieceDto> getAll() {
-        return StreamSupport
-                .stream(artRepository.findAll().spliterator(), false)
+        return artRepository.findAll().stream()
                 .map(ArtPieceDto::of)
                 .collect(Collectors.toList());
     }
 
     public ArtPieceDto getById(Long id) {
-        Optional<ArtPieceDbo> artPieceDboOptional = artRepository.findById(id);
-        if (artPieceDboOptional.isPresent()) {
-            return ArtPieceDto.of(artPieceDboOptional.get());
-        }
-        throw new ItemNotFoundException(id);
+        return ArtPieceDto.of(artRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id)));
     }
 
     public void createNew(ArtPieceRequest request) {
-        CategoryDbo itemCategory = categoryRepository.findById(request.getCategoryDto().getId())
-                .orElseGet(() -> {
-                    request.getCategoryDto().setId(null);
-                    return categoryRepository.save(CategoryDbo.of(request.getCategoryDto()));
-                });
+        RequestValidator.validateArtPiece(request);
 
-        ArtPieceDbo artPieceDbo = new ArtPieceDbo();
+        var itemCategory = categoryRepository.findByCategoryName(request.getCategoryName())
+                .orElseGet(() -> categoryRepository.save(new CategoryDbo(request.getCategoryName())));
+
+        var artPieceDbo = new ArtPieceDbo();
         artPieceDbo.setCategory(itemCategory);
         artPieceDbo.setDescription(request.getDescription());
         artPieceDbo.setName(request.getName());
